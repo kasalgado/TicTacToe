@@ -1,4 +1,4 @@
-using TicTacToe;
+using TicTacToe.Business;
 
 namespace TicTacToeTests
 {
@@ -13,7 +13,7 @@ namespace TicTacToeTests
         }
 
         [Test]
-        public void Return_Initial_Matrix_Values()
+        public void Return_Initial_Matrix_Value()
         {
             char matrixValue = _dataManager.GetMatrixValue(0, 0);
 
@@ -21,7 +21,7 @@ namespace TicTacToeTests
         }
 
         [Test]
-        public void Set_Value_In_Matrix()
+        public void Set_Value_In_Matrix_By_Index()
         {
             _dataManager.SetMatrixValue('x', 0, 0);
             char matrixValue = _dataManager.GetMatrixValue(0, 0);

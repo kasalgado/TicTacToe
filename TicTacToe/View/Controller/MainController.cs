@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TicTacToe.Business;
 
-namespace TicTacToe
+namespace TicTacToe.View.Controller
 {
-    internal class ViewController
+    internal class MainController
     {
-        public ViewController()
+        public MainController()
         {
+            Console.WriteLine(CreateMatrix());
             DisplayPressedKey();
+            Console.WriteLine(Messages.GetMessageByIndex(0));
+
             while (Console.ReadKey().Key != ConsoleKey.Enter) { };
         }
 
@@ -52,6 +52,15 @@ namespace TicTacToe
             }
 
             return ConsoleKey.A;
+        }
+
+        private string CreateMatrix()
+        {
+            DataManager dataManager = new DataManager();
+            Array matrix = dataManager.GetInitialMatrix();
+            StringCreator stringCreator = new StringCreator();
+
+            return stringCreator.CreateTicTacToe(matrix);
         }
     }
 }

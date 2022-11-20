@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TicTacToe
+namespace TicTacToe.Business
 {
     public class DataManager
     {
@@ -33,6 +29,11 @@ namespace TicTacToe
         public char GetMatrixValue(int index1, int index2)
         {
             return (char)_matrix.GetValue(index1, index2);
+        }
+
+        public Array GetInitialMatrix()
+        {
+            return _matrix;
         }
     }
 }

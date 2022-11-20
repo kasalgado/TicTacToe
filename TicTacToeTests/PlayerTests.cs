@@ -1,4 +1,4 @@
-﻿using TicTacToe;
+﻿using TicTacToe.Business;
 
 namespace TicTacToeTests
 {
