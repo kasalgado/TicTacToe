@@ -2,15 +2,15 @@
 {
     public class Player
     {
-        private int _id;
+        private string _name;
 
-        public int Id { get => _id;  }
+        public string Name { get => _name;  }
 
         public bool Active { get; set; }
 
-        public Player(int id)
+        public Player(string name)
         {
-            _id = id;
+            _name = name;
         }
     }
 }

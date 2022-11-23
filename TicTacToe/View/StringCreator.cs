@@ -12,11 +12,20 @@ namespace TicTacToe.View
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    result += matrix.GetValue(i, j) + "|";
+                    result += matrix.GetValue(i, j);
+
+                    if (j < 2)
+                    {
+                        result += "|";
+                    }
                 }
 
                 result += Environment.NewLine;
-                result += "-----" + Environment.NewLine;
+
+                if (i < 2)
+                {
+                    result += "-----" + Environment.NewLine;
+                }
             }
 
             return result;

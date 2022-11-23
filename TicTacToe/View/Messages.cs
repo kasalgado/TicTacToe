@@ -4,9 +4,12 @@ namespace TicTacToe.View
 {
     internal static class Messages
     {
-        private static readonly Array _messages = new string[1]
+        private static readonly Array _messages = new string[]
         {
-            "First message"
+            "Welcome players",
+            "Game over",
+            "Your turn: ",
+            "Player name: ",
         };
 
         public static string GetMessageByIndex(int index)
