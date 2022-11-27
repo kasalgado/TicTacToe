@@ -1,4 +1,8 @@
-﻿namespace TicTacToe.Business.Controller
+﻿using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace TicTacToe.Business.Controller
 {
     public class PlayerController
     {
@@ -18,6 +22,19 @@
 
                 return player2;
             }
+        }
+
+        public bool IsWinner(Player player)
+        {
+            return CompareResults(player.GetPositions());
+        }
+
+        private bool CompareResults(List<int> results)
+        {
+            List<int> machedResults = new List<int>() { 3, 5, 7 };
+            results.Sort();
+
+            return Enumerable.SequenceEqual(results, machedResults);
         }
     }
 }

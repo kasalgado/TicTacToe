@@ -58,6 +58,7 @@
     <Compile Include="Business\DataManager.cs" />
     <Compile Include="Business\Player.cs" />
     <Compile Include="Business\Controller\PlayerController.cs" />
+    <Compile Include="Checker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Controller\MainController.cs" />

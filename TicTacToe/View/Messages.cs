@@ -10,6 +10,8 @@ namespace TicTacToe.View
             "Game over",
             "Your turn: ",
             "Player name: ",
+            "Press Enter to finish",
+            " you won!",
         };
 
         public static string GetMessageByIndex(int index)

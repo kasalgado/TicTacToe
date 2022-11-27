@@ -10,18 +10,18 @@ namespace TicTacToeTests
         [SetUp]
         public void Setup()
         {
-            _player1 = new Player(1);
-            _player2 = new Player(2);
+            _player1 = new Player("kas", 'X');
+            _player2 = new Player("nms", 'O');
         }
 
         [Test]
         public void Get_Player_From_Id()
         {
             Assert.That(_player1, Is.InstanceOf<Player>());
-            Assert.That(1, Is.EqualTo(_player1.Id));
+            Assert.That("kas", Is.EqualTo(_player1.Name));
 
             Assert.That(_player2, Is.InstanceOf<Player>());
-            Assert.That(2, Is.EqualTo(_player2.Id));
+            Assert.That("nms", Is.EqualTo(_player2.Name));
         }
     }
 }

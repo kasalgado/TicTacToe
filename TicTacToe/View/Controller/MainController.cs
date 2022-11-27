@@ -23,19 +23,24 @@ namespace TicTacToe.View.Controller
             
             do
             {
-                Console.Clear();
-
-                Player nextPlayer = playerController.NextPlayer(_player1, _player2);
-                Console.WriteLine(Messages.GetMessageByIndex(2) + nextPlayer.Name + Environment.NewLine);
-                Console.WriteLine(CreateMatrix(_matrix));
+                Player currentPlayer = playerController.NextPlayer(_player1, _player2);
+                Display(currentPlayer);
                 pressedKey = Console.ReadKey(true).Key;
 
                 if (pressedKey >= ConsoleKey.NumPad1 && pressedKey <= ConsoleKey.NumPad9)
                 {
-                    dataManager.MapNumber(pressedKey, 'X');
+                    int position = dataManager.MapNumber(pressedKey, currentPlayer.Symbol);
+                    currentPlayer.SetPosition(position);
+
+                    if (playerController.IsWinner(currentPlayer))
+                    {
+                        Display(currentPlayer);
+                        Console.WriteLine(currentPlayer.Name + Messages.GetMessageByIndex(5));
+                        break;
+                    }
                 }
             } while (pressedKey != ConsoleKey.Enter);
-
+                
             Console.WriteLine(Messages.GetMessageByIndex(1));
             Console.ReadKey(true);
         }
@@ -47,20 +52,23 @@ namespace TicTacToe.View.Controller
             return stringCreator.CreateTicTacToe(matrix);
         }
 
-        private Player CreatePlayer(string name)
-        {
-            return new Player(name);
-        }
-
         private void InputPlayers()
         {
-            Console.Write("1 " + Messages.GetMessageByIndex(3));
+            Console.Write("X " + Messages.GetMessageByIndex(3));
             String name1 = Console.ReadLine();
-            _player1 = CreatePlayer(name1);
+            _player1 = new Player(name1, 'X');
 
-            Console.Write("2 " + Messages.GetMessageByIndex(3));
+            Console.Write("O " + Messages.GetMessageByIndex(3));
             String name2 = Console.ReadLine();
-            _player2 = CreatePlayer(name2);
+            _player2 = new Player(name2, 'O');
+        }
+
+        private void Display(Player currentPlayer)
+        {
+            Console.Clear();
+            Console.WriteLine(Messages.GetMessageByIndex(2) + currentPlayer.Name + Environment.NewLine);
+            Console.WriteLine(CreateMatrix(_matrix));
+            Console.WriteLine(Messages.GetMessageByIndex(4));
         }
     }
 }
