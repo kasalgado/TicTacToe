@@ -1,22 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TicTacToe.View
 {
     internal static class Messages
     {
-        private static readonly Array _messages = new string[]
+        private static readonly Dictionary<string, string> _messages = new Dictionary<string, string>
         {
-            "Welcome players",
-            "Game over",
-            "Your turn: ",
-            "Player name: ",
-            "Press Enter to finish",
-            " you won!",
+            { "welcome.players", "Welcome players" },
+            { "game.over", "Game over" },
+            { "your.turn", "Your turn: " },
+            { "player.name", "Player name: " },
+            { "enter.finish", "Press Enter to finish" },
+            { "you.won", "you won!" },
         };
 
-        public static string GetMessageByIndex(int index)
+        public static string GetMessage(string key)
         {
-            return _messages.GetValue(index).ToString();
+            return _messages[key];
         }
     }
 }

@@ -12,19 +12,18 @@ namespace TicTacToe.View.Controller
 
         public MainController()
         {
-            Console.WriteLine(Messages.GetMessageByIndex(0) + Environment.NewLine);
-
-            InputPlayers();
+            Console.WriteLine(Messages.GetMessage("welcome.players") + Environment.NewLine);
+            EnterPlayers();
 
             DataManager dataManager = new DataManager();
             _matrix = dataManager.GetMatrix();
             ConsoleKey pressedKey;
             PlayerController playerController = new PlayerController();
+            Player currentPlayer = playerController.NextPlayer(_player1, _player2);
             
             do
             {
-                Player currentPlayer = playerController.NextPlayer(_player1, _player2);
-                Display(currentPlayer);
+                RunGame(currentPlayer);
                 pressedKey = Console.ReadKey(true).Key;
 
                 if (pressedKey >= ConsoleKey.NumPad1 && pressedKey <= ConsoleKey.NumPad9)
@@ -34,14 +33,18 @@ namespace TicTacToe.View.Controller
 
                     if (playerController.IsWinner(currentPlayer))
                     {
-                        Display(currentPlayer);
-                        Console.WriteLine(currentPlayer.Name + Messages.GetMessageByIndex(5));
+                        RunGame(currentPlayer);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(currentPlayer.Name + Messages.GetMessage("you.won"));
+                        Console.ResetColor();
                         break;
                     }
+
+                    currentPlayer = playerController.NextPlayer(_player1, _player2);
                 }
             } while (pressedKey != ConsoleKey.Enter);
                 
-            Console.WriteLine(Messages.GetMessageByIndex(1));
+            Console.WriteLine(Messages.GetMessage("game.over"));
             Console.ReadKey(true);
         }
 
@@ -52,23 +55,27 @@ namespace TicTacToe.View.Controller
             return stringCreator.CreateTicTacToe(matrix);
         }
 
-        private void InputPlayers()
+        private void EnterPlayers()
         {
-            Console.Write("X " + Messages.GetMessageByIndex(3));
+            Console.Write("X " + Messages.GetMessage("player.name"));
             String name1 = Console.ReadLine();
             _player1 = new Player(name1, 'X');
 
-            Console.Write("O " + Messages.GetMessageByIndex(3));
+            Console.Write("O " + Messages.GetMessage("player.name"));
             String name2 = Console.ReadLine();
             _player2 = new Player(name2, 'O');
         }
 
-        private void Display(Player currentPlayer)
+        private void RunGame(Player currentPlayer)
         {
             Console.Clear();
-            Console.WriteLine(Messages.GetMessageByIndex(2) + currentPlayer.Name + Environment.NewLine);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Messages.GetMessage("your.turn") + currentPlayer.Name + Environment.NewLine);
+            Console.ResetColor();
             Console.WriteLine(CreateMatrix(_matrix));
-            Console.WriteLine(Messages.GetMessageByIndex(4));
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(Messages.GetMessage("enter.finish"));
+            Console.ResetColor();
         }
     }
 }
