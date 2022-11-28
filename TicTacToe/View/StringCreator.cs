@@ -2,9 +2,9 @@
 
 namespace TicTacToe.View
 {
-    internal class StringCreator
+    internal class MatrixCreator
     {
-        public string CreateTicTacToe(Array matrix)
+        public string Create(Array matrix)
         {
             string result = "";
 

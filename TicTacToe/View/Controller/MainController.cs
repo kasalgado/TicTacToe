@@ -50,9 +50,9 @@ namespace TicTacToe.View.Controller
 
         private string CreateMatrix(Array matrix)
         {
-            StringCreator stringCreator = new StringCreator();
+            MatrixCreator matrixCreator = new MatrixCreator();
 
-            return stringCreator.CreateTicTacToe(matrix);
+            return matrixCreator.Create(matrix);
         }
 
         private void EnterPlayers()
