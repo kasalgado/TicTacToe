@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TicTacToe.Business.Controller
 {
-    public class PlayerController
+    public class PlayerController : IPlayerController
     {
         public Player NextPlayer(Player player1, Player player2)
         {
@@ -25,15 +25,37 @@ namespace TicTacToe.Business.Controller
 
         public bool IsWinner(Player player)
         {
-            return CompareResults(player.GetPositions());
+            if (player.GetPositions().Count >= 3)
+            {
+                return CompareResults(player.GetPositions());
+            }
+
+            return false;
         }
 
         private bool CompareResults(List<int> results)
         {
-            List<int> machedResults = new List<int>() { 3, 5, 7 };
-            results.Sort();
+            List<List<int>> matchedResults = new List<List<int>>
+            {
+                new List<int>() { 1, 2, 3 },
+                new List<int>() { 1, 5, 9 },
+                new List<int>() { 1, 4, 7 },
+                new List<int>() { 2, 5, 8 },
+                new List<int>() { 3, 5, 7 },
+                new List<int>() { 3, 6, 9 },
+                new List<int>() { 4, 5, 6 },
+                new List<int>() { 7, 8, 9 },
+            };
 
-            return Enumerable.SequenceEqual(results, machedResults);
+            foreach (List<int> match in matchedResults)
+            {
+                if (!match.Except(results).Any())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

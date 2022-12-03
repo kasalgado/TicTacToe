@@ -1,15 +1,11 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TicTacToe.Business
 {
     public class Player
     {
         private string _name;
-
         private char _symbol;
-
         private List<int> _positions;
 
         public string Name { get => _name;  }

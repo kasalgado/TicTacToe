@@ -1,4 +1,6 @@
 ﻿using TicTacToe.View.Controller;
+using TicTacToe.Business;
+using TicTacToe.Business.Controller;
 
 namespace TicTacToe
 {
@@ -6,7 +8,11 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            new MainController();
+            DataManager dataManager = new DataManager();
+            IPlayerController playerController = new PlayerController();
+
+            GameController game = new GameController(dataManager, playerController);
+            game.Start();
         }
     }
 }

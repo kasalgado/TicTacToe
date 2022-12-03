@@ -12,7 +12,7 @@ namespace TicTacToe.View
             { "your.turn", "Your turn: " },
             { "player.name", "Player name: " },
             { "enter.finish", "Press Enter to finish" },
-            { "you.won", "you won!" },
+            { "you.won", " you won!" },
         };
 
         public static string GetMessage(string key)

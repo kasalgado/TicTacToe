@@ -11,16 +11,6 @@ namespace TicTacToe.Business
             this.InitMatrix();
         }
 
-        private void InitMatrix()
-        { 
-            _matrix = new char[3, 3]
-            {
-                { '7', '8', '9' },
-                { '4', '5', '6' },
-                { '1', '2', '3' },
-            };
-        }
-
         public int MapNumber(ConsoleKey number, char value)
         {
             int positionNumber = 0;
@@ -68,19 +58,19 @@ namespace TicTacToe.Business
             return positionNumber;
         }
 
-        public void SetMatrixValue(char value, int index1, int index2)
-        {
-            _matrix.SetValue(value, index1, index2);
-        }
-
-        public char GetMatrixValue(int index1, int index2)
-        {
-            return (char)_matrix.GetValue(index1, index2);
-        }
-
         public Array GetMatrix()
         {
             return _matrix;
+        }
+
+        private void InitMatrix()
+        {
+            _matrix = new char[3, 3]
+            {
+                { '7', '8', '9' },
+                { '4', '5', '6' },
+                { '1', '2', '3' },
+            };
         }
     }
 }

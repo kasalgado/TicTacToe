@@ -4,23 +4,30 @@ using TicTacToe.Business.Controller;
 
 namespace TicTacToe.View.Controller
 {
-    internal class MainController
+    internal class GameController
     {
         private Array _matrix;
         private Player _player1;
         private Player _player2;
 
-        public MainController()
+        private DataManager _dataManager;
+        private IPlayerController _playerController;
+
+        public GameController(DataManager dataManager, IPlayerController playerController)
+        {
+            _dataManager = dataManager;
+            _playerController = playerController;
+        }
+
+        public void Start()
         {
             Console.WriteLine(Messages.GetMessage("welcome.players") + Environment.NewLine);
-            EnterPlayers();
+            CreatePlayers();
 
-            DataManager dataManager = new DataManager();
-            _matrix = dataManager.GetMatrix();
+            _matrix = _dataManager.GetMatrix();
             ConsoleKey pressedKey;
-            PlayerController playerController = new PlayerController();
-            Player currentPlayer = playerController.NextPlayer(_player1, _player2);
-            
+            Player currentPlayer = _playerController.NextPlayer(_player1, _player2);
+
             do
             {
                 RunGame(currentPlayer);
@@ -28,10 +35,10 @@ namespace TicTacToe.View.Controller
 
                 if (pressedKey >= ConsoleKey.NumPad1 && pressedKey <= ConsoleKey.NumPad9)
                 {
-                    int position = dataManager.MapNumber(pressedKey, currentPlayer.Symbol);
+                    int position = _dataManager.MapNumber(pressedKey, currentPlayer.Symbol);
                     currentPlayer.SetPosition(position);
 
-                    if (playerController.IsWinner(currentPlayer))
+                    if (_playerController.IsWinner(currentPlayer))
                     {
                         RunGame(currentPlayer);
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -40,10 +47,10 @@ namespace TicTacToe.View.Controller
                         break;
                     }
 
-                    currentPlayer = playerController.NextPlayer(_player1, _player2);
+                    currentPlayer = _playerController.NextPlayer(_player1, _player2);
                 }
             } while (pressedKey != ConsoleKey.Enter);
-                
+
             Console.WriteLine(Messages.GetMessage("game.over"));
             Console.ReadKey(true);
         }
@@ -55,7 +62,7 @@ namespace TicTacToe.View.Controller
             return matrixCreator.Create(matrix);
         }
 
-        private void EnterPlayers()
+        private void CreatePlayers()
         {
             Console.Write("X " + Messages.GetMessage("player.name"));
             String name1 = Console.ReadLine();

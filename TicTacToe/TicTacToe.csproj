@@ -55,12 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Controller\IPlayerController.cs" />
     <Compile Include="Business\DataManager.cs" />
     <Compile Include="Business\Player.cs" />
     <Compile Include="Business\Controller\PlayerController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\Controller\MainController.cs" />
+    <Compile Include="View\Controller\GameController.cs" />
     <Compile Include="View\Messages.cs" />
     <Compile Include="View\MatrixCreator.cs" />
   </ItemGroup>
