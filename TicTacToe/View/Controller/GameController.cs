@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using TicTacToe.Business;
 using TicTacToe.Business.Controller;
 
@@ -12,18 +13,17 @@ namespace TicTacToe.View.Controller
 
         private DataManager _dataManager;
         private IPlayerController _playerController;
+        private IMatrixCreator _matrixCreator;
 
-        public GameController(DataManager dataManager, IPlayerController playerController)
+        public GameController(DataManager dataManager, IPlayerController playerController, IMatrixCreator matrixCreator)
         {
             _dataManager = dataManager;
             _playerController = playerController;
+            _matrixCreator = matrixCreator;
         }
 
         public void Start()
         {
-            Console.WriteLine(Messages.GetMessage("welcome.players") + Environment.NewLine);
-            CreatePlayers();
-
             _matrix = _dataManager.GetMatrix();
             ConsoleKey pressedKey;
             Player currentPlayer = _playerController.NextPlayer(_player1, _player2);
@@ -55,15 +55,9 @@ namespace TicTacToe.View.Controller
             Console.ReadKey(true);
         }
 
-        private string CreateMatrix(Array matrix)
+        public void EnterPlayers()
         {
-            MatrixCreator matrixCreator = new MatrixCreator();
-
-            return matrixCreator.Create(matrix);
-        }
-
-        private void CreatePlayers()
-        {
+            Console.WriteLine(Messages.GetMessage("welcome.players") + Environment.NewLine);
             Console.Write("X " + Messages.GetMessage("player.name"));
             String name1 = Console.ReadLine();
             _player1 = new Player(name1, 'X');
@@ -79,7 +73,7 @@ namespace TicTacToe.View.Controller
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(Messages.GetMessage("your.turn") + currentPlayer.Name + Environment.NewLine);
             Console.ResetColor();
-            Console.WriteLine(CreateMatrix(_matrix));
+            Console.WriteLine(_matrixCreator.Create(_matrix));
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(Messages.GetMessage("enter.finish"));
             Console.ResetColor();

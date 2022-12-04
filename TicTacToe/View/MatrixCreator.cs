@@ -2,7 +2,7 @@
 
 namespace TicTacToe.View
 {
-    internal class MatrixCreator
+    internal class MatrixCreator : IMatrixCreator
     {
         public string Create(Array matrix)
         {

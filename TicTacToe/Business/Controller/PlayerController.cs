@@ -27,13 +27,13 @@ namespace TicTacToe.Business.Controller
         {
             if (player.GetPositions().Count >= 3)
             {
-                return CompareResults(player.GetPositions());
+                return SearchMatch(player.GetPositions());
             }
 
             return false;
         }
 
-        private bool CompareResults(List<int> results)
+        private bool SearchMatch(List<int> results)
         {
             List<List<int>> matchedResults = new List<List<int>>
             {

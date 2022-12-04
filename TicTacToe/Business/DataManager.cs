@@ -8,7 +8,17 @@ namespace TicTacToe.Business
 
         public DataManager()
         {
-            this.InitMatrix();
+            _matrix = new char[3, 3]
+            {
+                { '7', '8', '9' },
+                { '4', '5', '6' },
+                { '1', '2', '3' },
+            };
+        }
+
+        public Array GetMatrix()
+        {
+            return _matrix;
         }
 
         public int MapNumber(ConsoleKey number, char value)
@@ -56,21 +66,6 @@ namespace TicTacToe.Business
             }
 
             return positionNumber;
-        }
-
-        public Array GetMatrix()
-        {
-            return _matrix;
-        }
-
-        private void InitMatrix()
-        {
-            _matrix = new char[3, 3]
-            {
-                { '7', '8', '9' },
-                { '4', '5', '6' },
-                { '1', '2', '3' },
-            };
         }
     }
 }
