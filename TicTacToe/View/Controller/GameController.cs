@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Linq;
 using TicTacToe.Business;
 using TicTacToe.Business.Controller;
 
@@ -10,12 +10,15 @@ namespace TicTacToe.View.Controller
         private Array _matrix;
         private Player _player1;
         private Player _player2;
+        private string _notification;
 
         private DataManager _dataManager;
-        private IPlayerController _playerController;
-        private IMatrixCreator _matrixCreator;
+        private PlayerController _playerController;
+        private MatrixCreator _matrixCreator;
 
-        public GameController(DataManager dataManager, IPlayerController playerController, IMatrixCreator matrixCreator)
+        private int[] _matrixPositions = new int[9] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+        public GameController(DataManager dataManager, PlayerController playerController, MatrixCreator matrixCreator)
         {
             _dataManager = dataManager;
             _playerController = playerController;
@@ -26,57 +29,104 @@ namespace TicTacToe.View.Controller
         {
             _matrix = _dataManager.GetMatrix();
             ConsoleKey pressedKey;
-            Player currentPlayer = _playerController.NextPlayer(_player1, _player2);
+            Player currentPlayer = _player1;
 
             do
             {
-                RunGame(currentPlayer);
+                DisplayGame(currentPlayer);
                 pressedKey = Console.ReadKey(true).Key;
 
                 if (pressedKey >= ConsoleKey.NumPad1 && pressedKey <= ConsoleKey.NumPad9)
                 {
                     int position = _dataManager.MapNumber(pressedKey, currentPlayer.Symbol);
-                    currentPlayer.SetPosition(position);
 
-                    if (_playerController.IsWinner(currentPlayer))
+                    if (Array.IndexOf(_matrixPositions, position) != -1)
                     {
-                        RunGame(currentPlayer);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(currentPlayer.Name + Messages.GetMessage("you.won"));
-                        Console.ResetColor();
-                        break;
-                    }
+                        currentPlayer.SetPosition(position);
+                        _dataManager.SetSymbol(pressedKey, currentPlayer.Symbol);
 
-                    currentPlayer = _playerController.NextPlayer(_player1, _player2);
+                        if (_playerController.IsWinner(currentPlayer))
+                        {
+                            DisplayGame(currentPlayer);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine(Environment.NewLine + currentPlayer.Name + Messages.GetMessage("you.won"));
+                            Console.ResetColor();
+                            SoundController.Play("winner");
+                            break;
+                        }
+
+                        currentPlayer = _playerController.NextPlayer(_player1, _player2);
+                        RemoveMatrixPosition(position);
+                        _notification = null;
+                    }
+                    else
+                    {
+                        _notification = "pressed.number";
+                    }
+                }
+                else
+                {
+                    _notification = "wrong.key";
                 }
             } while (pressedKey != ConsoleKey.Enter);
 
-            Console.WriteLine(Messages.GetMessage("game.over"));
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(Environment.NewLine + Messages.GetMessage("game.over"));
             Console.ReadKey(true);
         }
 
         public void EnterPlayers()
         {
             Console.WriteLine(Messages.GetMessage("welcome.players") + Environment.NewLine);
-            Console.Write("X " + Messages.GetMessage("player.name"));
+            Console.Write($"[X] {Messages.GetMessage("player.name")}");
             String name1 = Console.ReadLine();
             _player1 = new Player(name1, 'X');
 
-            Console.Write("O " + Messages.GetMessage("player.name"));
+            Console.Write($"[O] {Messages.GetMessage("player.name")}");
             String name2 = Console.ReadLine();
             _player2 = new Player(name2, 'O');
+
+            SoundController.Play("play");
         }
 
-        private void RunGame(Player currentPlayer)
+        public void ShowInstructions()
+        {
+            foreach (string line in System.IO.File.ReadLines(@"c:\temp\GameInstructions.txt"))
+            {
+                Console.WriteLine(line);
+            }
+
+            SoundController.Play("start");
+            Console.ReadKey(true);
+            Console.Clear();
+        }
+
+        private void DisplayGame(Player currentPlayer)
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(Messages.GetMessage("your.turn") + currentPlayer.Name + Environment.NewLine);
             Console.ResetColor();
+            
             Console.WriteLine(_matrixCreator.Create(_matrix));
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Beep();
+
+            if (!String.IsNullOrEmpty(_notification) && !_playerController.IsWinner(currentPlayer))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Messages.GetMessage(_notification) + Environment.NewLine);
+                Console.ResetColor();
+                SoundController.Play("error");
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(Messages.GetMessage("enter.finish"));
             Console.ResetColor();
+        }
+
+        private void RemoveMatrixPosition(int position)
+        {
+            _matrixPositions = _matrixPositions.Where(e => e != position).ToArray();
         }
     }
 }

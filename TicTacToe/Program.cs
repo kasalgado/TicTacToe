@@ -2,6 +2,8 @@
 using TicTacToe.Business;
 using TicTacToe.Business.Controller;
 using TicTacToe.View;
+using System;
+using System.IO;
 
 namespace TicTacToe
 {
@@ -10,10 +12,11 @@ namespace TicTacToe
         static void Main(string[] args)
         {
             DataManager dataManager = new DataManager();
-            IPlayerController playerController = new PlayerController();
-            IMatrixCreator matrixCreator = new MatrixCreator();
+            PlayerController playerController = new PlayerController();
+            MatrixCreator matrixCreator = new MatrixCreator();
 
             GameController game = new GameController(dataManager, playerController, matrixCreator);
+            game.ShowInstructions();
             game.EnterPlayers();
             game.Start();
         }

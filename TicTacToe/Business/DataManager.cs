@@ -28,44 +28,69 @@ namespace TicTacToe.Business
             switch (number)
             {
                 case ConsoleKey.NumPad1:
-                    _matrix.SetValue(value, 2, 0);
                     positionNumber = 1;
                     break;
                 case ConsoleKey.NumPad2:
-                    _matrix.SetValue(value, 2, 1);
                     positionNumber = 2;
                     break;
                 case ConsoleKey.NumPad3:
-                    _matrix.SetValue(value, 2, 2);
                     positionNumber = 3;
                     break;
                 case ConsoleKey.NumPad4:
-                    _matrix.SetValue(value, 1, 0);
                     positionNumber = 4;
                     break;
                 case ConsoleKey.NumPad5:
-                    _matrix.SetValue(value, 1, 1);
                     positionNumber = 5;
                     break;
                 case ConsoleKey.NumPad6:
-                    _matrix.SetValue(value, 1, 2);
                     positionNumber = 6;
                     break;
                 case ConsoleKey.NumPad7:
-                    _matrix.SetValue(value, 0, 0);
                     positionNumber = 7;
                     break;
                 case ConsoleKey.NumPad8:
-                    _matrix.SetValue(value, 0, 1);
                     positionNumber = 8;
                     break;
                 case ConsoleKey.NumPad9:
-                    _matrix.SetValue(value, 0, 2);
                     positionNumber = 9;
                     break;
             }
 
             return positionNumber;
+        }
+
+        public void SetSymbol(ConsoleKey number, char value)
+        {
+            switch (number)
+            {
+                case ConsoleKey.NumPad1:
+                    _matrix.SetValue(value, 2, 0);
+                    break;
+                case ConsoleKey.NumPad2:
+                    _matrix.SetValue(value, 2, 1);
+                    break;
+                case ConsoleKey.NumPad3:
+                    _matrix.SetValue(value, 2, 2);
+                    break;
+                case ConsoleKey.NumPad4:
+                    _matrix.SetValue(value, 1, 0);
+                    break;
+                case ConsoleKey.NumPad5:
+                    _matrix.SetValue(value, 1, 1);
+                    break;
+                case ConsoleKey.NumPad6:
+                    _matrix.SetValue(value, 1, 2);
+                    break;
+                case ConsoleKey.NumPad7:
+                    _matrix.SetValue(value, 0, 0);
+                    break;
+                case ConsoleKey.NumPad8:
+                    _matrix.SetValue(value, 0, 1);
+                    break;
+                case ConsoleKey.NumPad9:
+                    _matrix.SetValue(value, 0, 2);
+                    break;
+            }
         }
     }
 }

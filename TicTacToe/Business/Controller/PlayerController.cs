@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TicTacToe.Business.Controller
 {
-    public class PlayerController : IPlayerController
+    public class PlayerController
     {
         public Player NextPlayer(Player player1, Player player2)
         {
