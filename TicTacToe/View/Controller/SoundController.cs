@@ -10,38 +10,38 @@ namespace TicTacToe.View.Controller
     {
         public static void Play(string name)
         {
-            int herz = 100;
+            int hertz = 100;
             int seconds = 1000;
             int count = 0;
 
             switch (name)
             {
                 case "start":
-                    herz = 500;
+                    hertz = 500;
                     seconds = 500;
                     count = 3;
                     break;
 
                 case "play":
-                    herz = 600;
+                    hertz = 600;
                     seconds = 200;
                     count = 5;
                     break;
 
                 case "error":
-                    herz = 300;
+                    hertz = 300;
                     seconds = 1000;
                     count = 1;
                     break;
 
                 case "winner":
-                    herz = 1000;
-                    seconds = 1000;
+                    hertz = 500;
+                    seconds = 1200;
                     count = 3;
                     break;
             }
 
-            Generate(count, herz, seconds);
+            Generate(count, hertz, seconds);
         }
 
         private static void Generate(int count, int herz, int seconds)
