@@ -12,13 +12,13 @@ namespace TicTacToe.View.Controller
         private Player _player2;
         private string _notification;
 
-        private DataManager _dataManager;
+        private MatrixManager _dataManager;
         private PlayerController _playerController;
         private MatrixCreator _matrixCreator;
 
         private int[] _matrixPositions = new int[9] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-        public GameController(DataManager dataManager, PlayerController playerController, MatrixCreator matrixCreator)
+        public GameController(MatrixManager dataManager, PlayerController playerController, MatrixCreator matrixCreator)
         {
             _dataManager = dataManager;
             _playerController = playerController;
@@ -38,12 +38,13 @@ namespace TicTacToe.View.Controller
 
                 if (pressedKey >= ConsoleKey.NumPad1 && pressedKey <= ConsoleKey.NumPad9)
                 {
-                    int position = _dataManager.MapNumber(pressedKey, currentPlayer.Symbol);
+                    string strNumber = pressedKey.ToString();
+                    int position = int.Parse(strNumber.Substring(strNumber.Length - 1));
 
                     if (Array.IndexOf(_matrixPositions, position) != -1)
                     {
                         currentPlayer.SetPosition(position);
-                        _dataManager.SetSymbol(pressedKey, currentPlayer.Symbol);
+                        _dataManager.MapNumber(pressedKey, currentPlayer.Symbol);
 
                         if (_playerController.IsWinner(currentPlayer))
                         {
@@ -78,15 +79,25 @@ namespace TicTacToe.View.Controller
         public void EnterPlayers()
         {
             Console.WriteLine(Messages.GetMessage("welcome.players") + Environment.NewLine);
-            Console.Write($"[X] {Messages.GetMessage("player.name")}");
-            String name1 = Console.ReadLine();
-            _player1 = new Player(name1, 'X');
 
-            Console.Write($"[O] {Messages.GetMessage("player.name")}");
-            String name2 = Console.ReadLine();
-            _player2 = new Player(name2, 'O');
+            _player1 = CreatePlayer('X');
+            _player2 = CreatePlayer('O');
 
             SoundController.Play("play");
+        }
+
+        private Player CreatePlayer(char symbol)
+        {
+            Console.Write($"[{symbol}] {Messages.GetMessage("player.name")}");
+            String name = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(name))
+            {
+                Console.Write($"[{symbol}] {Messages.GetMessage("player.name")}");
+                name = Console.ReadLine();
+            }
+
+            return new Player(name, symbol);
         }
 
         public void ShowInstructions()

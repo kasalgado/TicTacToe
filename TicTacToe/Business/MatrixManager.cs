@@ -2,11 +2,11 @@
 
 namespace TicTacToe.Business
 {
-    public class DataManager
+    public class MatrixManager
     {
         private Array _matrix;
 
-        public DataManager()
+        public MatrixManager()
         {
             _matrix = new char[3, 3]
             {
@@ -21,45 +21,7 @@ namespace TicTacToe.Business
             return _matrix;
         }
 
-        public int MapNumber(ConsoleKey number, char value)
-        {
-            int positionNumber = 0;
-
-            switch (number)
-            {
-                case ConsoleKey.NumPad1:
-                    positionNumber = 1;
-                    break;
-                case ConsoleKey.NumPad2:
-                    positionNumber = 2;
-                    break;
-                case ConsoleKey.NumPad3:
-                    positionNumber = 3;
-                    break;
-                case ConsoleKey.NumPad4:
-                    positionNumber = 4;
-                    break;
-                case ConsoleKey.NumPad5:
-                    positionNumber = 5;
-                    break;
-                case ConsoleKey.NumPad6:
-                    positionNumber = 6;
-                    break;
-                case ConsoleKey.NumPad7:
-                    positionNumber = 7;
-                    break;
-                case ConsoleKey.NumPad8:
-                    positionNumber = 8;
-                    break;
-                case ConsoleKey.NumPad9:
-                    positionNumber = 9;
-                    break;
-            }
-
-            return positionNumber;
-        }
-
-        public void SetSymbol(ConsoleKey number, char value)
+        public void MapNumber(ConsoleKey number, char value)
         {
             switch (number)
             {

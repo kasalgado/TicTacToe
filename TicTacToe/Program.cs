@@ -11,7 +11,7 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            DataManager dataManager = new DataManager();
+            MatrixManager dataManager = new MatrixManager();
             PlayerController playerController = new PlayerController();
             MatrixCreator matrixCreator = new MatrixCreator();
 

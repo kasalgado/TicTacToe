@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\DataManager.cs" />
+    <Compile Include="Business\MatrixManager.cs" />
     <Compile Include="Business\Player.cs" />
     <Compile Include="Business\Controller\PlayerController.cs" />
     <Compile Include="Program.cs" />

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TicTacToe.View.Controller
 {
@@ -30,13 +26,13 @@ namespace TicTacToe.View.Controller
 
                 case "error":
                     hertz = 300;
-                    seconds = 1000;
+                    seconds = 800;
                     count = 1;
                     break;
 
                 case "winner":
                     hertz = 500;
-                    seconds = 1200;
+                    seconds = 700;
                     count = 3;
                     break;
             }

@@ -4,12 +4,12 @@ namespace TicTacToeTests
 {
     class DataManagerTests
     {
-        private DataManager _dataManager;
+        private MatrixManager _dataManager;
 
         [SetUp]
         public void Setup()
         {
-            _dataManager = new DataManager();
+            _dataManager = new MatrixManager();
         }
     }
 }
