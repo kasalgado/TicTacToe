@@ -11,11 +11,11 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            MatrixManager dataManager = new MatrixManager();
+            MatrixController matrixController = new MatrixController();
             PlayerController playerController = new PlayerController();
             MatrixCreator matrixCreator = new MatrixCreator();
 
-            GameController game = new GameController(dataManager, playerController, matrixCreator);
+            GameController game = new GameController(matrixController, playerController, matrixCreator);
             game.ShowInstructions();
             game.EnterPlayers();
             game.Start();

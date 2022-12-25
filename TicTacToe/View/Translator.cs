@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TicTacToe.View
 {
-    internal static class Messages
+    internal static class Translator
     {
         private static readonly Dictionary<string, string> _messages = new Dictionary<string, string>
         {
@@ -17,7 +17,7 @@ namespace TicTacToe.View
             { "pressed.number", "This number was already pressed!" },
         };
 
-        public static string GetMessage(string key)
+        public static string Translate(string key)
         {
             return _messages[key];
         }

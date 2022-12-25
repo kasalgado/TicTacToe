@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace TicTacToe.Business
+namespace TicTacToe.Business.Controller
 {
-    public class MatrixManager
+    public class MatrixController
     {
         private Array _matrix;
 
-        public MatrixManager()
+        public MatrixController()
         {
             _matrix = new char[3, 3]
             {
@@ -21,7 +21,7 @@ namespace TicTacToe.Business
             return _matrix;
         }
 
-        public void MapNumber(ConsoleKey number, char value)
+        public void SetSymbol(ConsoleKey number, char value)
         {
             switch (number)
             {
