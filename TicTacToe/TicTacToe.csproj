@@ -89,6 +89,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Controller\GameController.cs" />
+    <Compile Include="View\PlayerCreator.cs" />
     <Compile Include="View\Controller\SoundController.cs" />
     <Compile Include="View\Translator.cs" />
     <Compile Include="View\MatrixCreator.cs" />

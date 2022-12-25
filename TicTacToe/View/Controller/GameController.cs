@@ -16,19 +16,26 @@ namespace TicTacToe.View.Controller
         private string _notification;
 
         private MatrixController _matrixController;
+        private PlayerCreator _playerCreator;
         private PlayerController _playerController;
         private MatrixCreator _matrixCreator;
 
         private int[] _matrixPositions = new int[9] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-        public GameController(MatrixController matrixController, PlayerController playerController, MatrixCreator matrixCreator)
+        public GameController(
+            MatrixController matrixController,
+            PlayerCreator playerCreator,
+            PlayerController playerController,
+            MatrixCreator matrixCreator
+        )
         {
             _matrixController = matrixController;
+            _playerCreator = playerCreator;
             _playerController = playerController;
             _matrixCreator = matrixCreator;
         }
 
-        public void Start()
+        public void Run()
         {
             _matrix = _matrixController.GetMatrix();
             ConsoleKey pressedKey;
@@ -83,24 +90,10 @@ namespace TicTacToe.View.Controller
         {
             Console.WriteLine(Translator.Translate("welcome.players") + Environment.NewLine);
 
-            _player1 = CreatePlayer(PLAYER_SYMBOL_X);
-            _player2 = CreatePlayer(PLAYER_SYMBOL_O);
+            _player1 = _playerCreator.CreatePlayer(PLAYER_SYMBOL_X);
+            _player2 = _playerCreator.CreatePlayer(PLAYER_SYMBOL_O);
 
             SoundController.Play("play");
-        }
-
-        private Player CreatePlayer(char symbol)
-        {
-            Console.Write($"[{symbol}] {Translator.Translate("player.name")}");
-            String name = Console.ReadLine();
-
-            while (string.IsNullOrEmpty(name))
-            {
-                Console.Write($"[{symbol}] {Translator.Translate("player.name")}");
-                name = Console.ReadLine();
-            }
-
-            return new Player(name, symbol);
         }
 
         public void ShowInstructions()
